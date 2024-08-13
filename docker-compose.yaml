@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app-1:
+    build: ./app   
+    environment:
+      - PORT=8080
+      - APP_ENV='app 1'
+    networks:
+      - wxwmp
+  app-2:
+    build: ./app   
+    environment:
+      - PORT=8080
+      - APP_ENV='app 2'
+    networks:
+      - wxwmp
+
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    networks:
+      - wxwmp
+    depends_on:
+      - app-1
+      - app-2
+
+networks:
+  wxwmp:
